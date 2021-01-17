@@ -1,0 +1,65 @@
+<main>
+  <p-toolbar class="toolbar" [styleClass]="'drag'">
+    <div class="p-toolbar-group-left d-flex" style="flex: 1;">
+      <img width="20" src="assets/images/accesibility-report.png">
+      <input type="text"
+          pInputText
+          pTooltip="Launch URL in browser"
+          [(ngModel)]="url"
+          class="p-ml-2"
+          style="flex: 1; min-width: 1rem;"
+          id="url"/>
+      <button pButton pRipple type="button"
+        icon="pi pi-play"
+        class="p-button-text no-drag p-ml-2"
+        (click)="launch()"
+        pTooltip="Launch URL in browser">
+      </button>
+      <button pButton pRipple type="button"
+        icon="pi pi-book"
+        class="p-button-text no-drag p-ml-2"
+        (click)="runAxe()"
+        pTooltip="Run Axe">
+      </button>
+    </div>
+  </p-toolbar>
+  <div class="reports">
+    <p-table
+      class="table"
+      [value]="reports"
+      selectionMode="single"
+      [(selection)]="selectedReport"
+      dataKey="timestamp"
+      (onRowSelect)="onReportSelected($event)"
+      (onRowUnselect)="onReportUnselected()"
+      [resizableColumns]="true"
+      [scrollable]="true"
+      scrollHeight="flex">
+      <ng-template pTemplate="colgroup">
+        <colgroup>
+          <col [style.width]="'25%'">
+          <col [style.width]="'25%'">
+          <col [style.width]="'25%'">
+          <col [style.width]="'25%'">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pResizableColumn>URL</th>
+          <th pResizableColumn>Timestamp</th>
+          <th pResizableColumn>Passed</th>
+          <th pResizableColumn>Inapplicable</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-report>
+        <tr [pSelectableRow]="report">
+          <td>{{ report.url }}</td>
+          <td>{{ report.timestamp }}</td>
+          <td>{{ report.passes.length }}</td>
+          <td>{{ report.inapplicable.length }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <textarea class="violations" p-tooltip="Violations" [(ngModel)]="violations" readonly></textarea>
+  </div>
+</main>

@@ -1,0 +1,56 @@
+:host {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+}
+
+main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-areas:
+    "toolbar"
+    "reports"
+    ;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  outline: 1px solid #ccc;
+}
+
+:host ::ng-deep main {
+  h1 {
+    display: inline-block;
+  }
+
+  textarea {
+    border: 1px solid #aaa;
+  }
+
+  .toolbar {
+    grid-area: toolbar;
+  }
+
+  .reports {
+    grid-area: reports;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr);
+    grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-areas:
+      "table"
+      "violations"
+      ;
+
+    .table {
+      grid-area: table;
+    }
+
+    .violations {
+      grid-area: violations;
+    }
+  }
+
+  .block {
+    width: 100%;
+  }
+}
